@@ -76,18 +76,26 @@ img{
             padding: 3rem;
             flex-grow: 1;
         }
-            .message_container .send{
+        .msgRow{
+            display: grid;
+            margin: 0.5rem 0;
+        }
+            .msg.send{
                 background-color:#d5f9ba ;
                 border-radius: 3px;
                 padding: 0.5rem;
                 position: relative;
+                display: flex;
+                justify-self: flex-end;
+                
             }
-            .message_container .recived{
+            .msg.recived{
                 border-radius: 3px;
                 padding: 5px;
                 position: relative;
                 background-color: rgb(216, 216, 216);
                 padding: 0.5rem;
+                justify-self: flex-start;
             }
             .message_container span.msg_time{
                 position: absolute;
@@ -143,6 +151,12 @@ img{
         padding: 8px;
         flex-grow: 0;
     }
+        .userId{
+            display: flex;
+        }
+        .userId .text-container span{
+            color:#b1b1b1;
+        }
         .user h6{
             display: inline;
         }

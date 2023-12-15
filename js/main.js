@@ -1,8 +1,20 @@
 const { createApp } = Vue;
+var DateTime = luxon.DateTime;
 
 createApp ({
     data(){
         return {
+            activeItem : 0,
+            newMessage: '',
+            contactSearch: '',
+            dateNow: (DateTime.now()).toLocaleString(DateTime.TIME_24_SIMPLE),
+            msgArrowUpPosition: null,
+            msgTendinaPosition: null,
+            pcTyping: false,
+            tempInfoMsg: '',
+            userMenu: false,
+            chatMenu: false,
+            modale: false,
             contacts: [
                 {
                     name: 'Michele',
@@ -164,6 +176,25 @@ createApp ({
                             status: 'received'
                         }
                     ],
+                    quotes: [
+                        "Ci devo pensare",
+                        "Vabbè",
+                        ":)",
+                        "Benissimo",
+                        "Certamente",
+                        "Andiamo a lavorare va là",
+                        "Che mi dici di bello?",
+                        "Andiamo al cinema",
+                        "Forse stasera ho da fare...",
+                        "Ti lovvo <3",
+                        "Viva Boolean",
+                        "Simone Icardi è il top"
+                    ],
+                    watch: {
+                        activeItem() {
+                            this.msgTendinaPosition = null;
+                        }
+                    },
                 }
             ]
             
@@ -171,9 +202,98 @@ createApp ({
         
     },
     methods: {
+        randomQuotePicker() {
+            let num = Math.floor(Math.random() * this.quotes.length)
+            let quote = this.quotes[num];
+            return quote;
+        },
+        lastmsgPreview(index) {
+            if (this.contacts[index].messages.length !== 0) {
+                let message = this.contacts[index].messages[this.contacts[index].messages.length - 1].message;
+                return message;
+            } else {
+                console.log('non ci sono messaggi');
+            }
+        },
+        lastmsgDate(index) {
+            if (this.contacts[index].messages.length !== 0) {
+                let time = (this.contacts[index].messages[this.contacts[index].messages.length - 1].date.split(' ')[0]).toLocaleString();
+                return time;
+            }
+        },
+        deleteChat(index) {
+            this.activeItem = index;
+            this.contacts.splice(this.activeItem, 1);
+            this.activeItem = 0;
+
+        },
+        lastReceived() {
+            const msgsArr = this.contacts[this.activeItem].messages;
+            if (msgsArr.length > 0) {
+
+                let msgsReceivedArr = msgsArr.filter(message => message.status === 'received');
+                if (msgsReceivedArr.length > 0) {
+                    return msgsReceivedArr[msgsReceivedArr.length - 1];
+                } else {
+                    let empty = '';
+                    return empty;
+                }
+            } else {
+                let empty = '';
+                return empty;
+            }
+        },
+        showSelected(value) {
+            this.activeItem = value;
+        },
+        receiveMessage() {
+            // while PC is "texting" (shows "sta scrivendo...")
+            this.tempInfoMsg = 'Sta scrivendo...'
+            this.pcTyping = true;
+            // right after the message is received (shows "online")
+            setTimeout(() => {
+                this.contacts[this.activeItem].messages.push({
+                    date: this.dateNow,
+                    message: this.randomQuotePicker(),
+                    status: 'received'
+                });
+                this.tempInfoMsg = 'online';
+                console.log(this.tempInfoMsg);
+                // 3 seconds after is received (shows time)
+                setTimeout(() => { this.pcTyping = false }, 3000);
+                console.log(this.lastReceived());
+
+            }, 1000);
+
+        },
+        emptyChat() {
+            this.contacts[this.activeItem].messages.length = 0;
+            this.chatMenu = !this.chatMenu;
+        },
+        emptyMessage() {
+            if (this.newMessage === '' || this.newMessage.trim().length === 0) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        addMessage() {
+            if (!this.emptyMessage()) {
+                this.contacts[this.activeItem].messages.push({
+                    date: this.dateNow,
+                    message: this.newMessage,
+                    status: 'sent'
+                })
+                this.receiveMessage();
+            }
+
+            this.newMessage = '';
+            console.log(this.contacts[this.activeItem].messages);
+
+        },
     },
     mounted(){
-        let ciao = 1;
-        console.log(ciao);
+
     }
 }).mount('#app');
