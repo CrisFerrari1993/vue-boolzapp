@@ -73,27 +73,16 @@
                     <!-- contacts -->
                     <div class="contacts-list">
                         <ul id="contactList">
-                            <li class="list_item active">
-                                <img src="img/5556468.png" alt="">
+                            <li class="list_item" v-for="(contact, i) in contacts" :key="i">
+                                <img :src="contact.avatar" :alt="contact.name">
                                 <div class="text-container">
                                     <h6>
-                                        Michele
+                                        {{contact.name}}
                                     </h6>
-                                    <span>Ultimo messaggio inviato</span>
+                                    <span>{{contact.messages}}</span>
                                 </div>
-                                <span class="time"> 12:00</span>
+                                <span class="time">{{}}</span>
                             </li>
-                            <li class="list_item">
-                                <img src="img/5556468.png" alt="">
-                                <div class="text-container">
-                                    <h6>
-                                        Michele
-                                    </h6>
-                                    <span>Ultimo messaggio inviato</span>
-                                </div>
-                                <span class="time"> 12:00</span>
-                            </li>
-                            
                         </ul>
                     </div>
                 </div>
@@ -102,15 +91,15 @@
                     <!-- User -->
                     <div class="user lightGray">
                         <div class="userId">
-                            <img src="img/5556458.png" alt="">
-                            <h6>Luca</h6>
+                            <img :src="contacts[0].avatar" alt="">
+                            <h6>{{contacts[0].name}}</h6>
                         </div>
                         <div class="userIcons">
                             <a href="">
-                                <i class="fa-solid fa-circle-notch"></i>
+                                <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
                             <a href="">
-                                <i class="fa-solid fa-message"></i>
+                                <i class="fa-solid fa-paperclip"></i>
                             </a>
                             <a href="">
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
