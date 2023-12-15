@@ -176,27 +176,29 @@ createApp ({
                             status: 'received'
                         }
                     ],
-                    quotes: [
-                        "Ci devo pensare",
-                        "Vabbè",
-                        ":)",
-                        "Benissimo",
-                        "Certamente",
-                        "Andiamo a lavorare va là",
-                        "Che mi dici di bello?",
-                        "Andiamo al cinema",
-                        "Forse stasera ho da fare...",
-                        "Ti lovvo <3",
-                        "Viva Boolean",
-                        "Simone Icardi è il top"
-                    ],
-                    watch: {
-                        activeItem() {
-                            this.msgTendinaPosition = null;
-                        }
-                    },
+                    
+                    
+                },
+            ],
+            quotes: [
+                "Ci devo pensare",
+                "Vabbè",
+                ":)",
+                "Benissimo",
+                "Certamente",
+                "Andiamo a lavorare va là",
+                "Che mi dici di bello?",
+                "Andiamo al cinema",
+                "Forse stasera ho da fare...",
+                "Ti lovvo <3",
+                "Viva Boolean",
+                "Simone Icardi è il top"
+            ],
+            watch: {
+                activeItem() {
+                    this.msgTendinaPosition = null;
                 }
-            ]
+            }
             
         }
         
